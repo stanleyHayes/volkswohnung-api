@@ -72,11 +72,17 @@ const userSchema = new Schema({
     },
     location: {
         type: {
-            type: String
+            type: String,
+            default: "Point"
         },
         coordinates: {
             type: [Number]
         }
+    },
+    role: {
+        type: String,
+        enum: ['SUPER ADMIN', 'ADMIN', 'PROVIDER', 'USER'],
+        default: 'USER'
     }
 });
 
