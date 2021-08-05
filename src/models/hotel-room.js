@@ -39,6 +39,9 @@ const hotelRoomSchema = new Schema({
         type: String,
         enum: ['AVAILABLE', 'OCCUPIED'],
         default: 'AVAILABLE'
+    },
+    information: {
+        type: String
     }
 }, {timestamps: {createdAt: true, updatedAt: true}});
 

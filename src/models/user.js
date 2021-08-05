@@ -15,8 +15,8 @@ const userSchema = new Schema({
         required: true,
         lowercase: true,
         unique: true,
-        validate(value){
-            if(!validator.isEmail(value)){
+        validate(value) {
+            if (!validator.isEmail(value)) {
                 throw new Error(`Invalid email ${value}`);
             }
         }
@@ -26,8 +26,8 @@ const userSchema = new Schema({
         trim: true,
         required: true,
         unique: true,
-        validate(value){
-            if(!validator.isMobilePhone(value)){
+        validate(value) {
+            if (!validator.isMobilePhone(value)) {
                 throw new Error(`Invalid phone ${value}`);
             }
         }
@@ -62,10 +62,10 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required:  true,
+        required: true,
         minlength: [6, 'Minimum length is 6'],
-        validate(value){
-            if(!validator.isStrongPassword(value)){
+        validate(value) {
+            if (!validator.isStrongPassword(value)) {
                 throw new Error(`Weak password ${value}`);
             }
         }
@@ -83,8 +83,49 @@ const userSchema = new Schema({
         type: String,
         enum: ['SUPER ADMIN', 'ADMIN', 'PROVIDER', 'USER'],
         default: 'USER'
+    },
+    status: {
+        type: {
+            type: String,
+            enum: ['CREATED', 'VERIFIED', 'ONLINE', 'OFFLINE', 'ACTIVE', 'DEACTIVATED', 'SUSPENDED'],
+            default: 'CREATED'
+        },
+        reason: {
+            type: String
+        },
+        date: {
+            type: Date
+        }
+    },
+    devices: {
+        type: [{
+            token: {
+                type: String
+            },
+            date: {
+                type: Date
+            },
+            os: {
+                type: String
+            },
+            browser: {
+                type: String
+            },
+            source: {
+                type: String
+            },
+            ip: {
+                type: String
+            },
+            isDesktop: {
+                type: Boolean
+            },
+            isMobile: {
+                type: Boolean
+            }
+        }]
     }
-});
+}, {timestamps: {createdAt: true, updatedAt: true}});
 
 const User = mongoose.model('User', userSchema);
 
